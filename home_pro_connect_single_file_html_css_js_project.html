@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>HomePro Connect</title>
+  <style>
+    /* === STYLES.CSS CONTENT === */
+    body {margin:0;font-family:sans-serif;color:#05200f;background:#f9f9f9;}
+    header {background:#fff;border-bottom:1px solid #ddd;position:sticky;top:0;z-index:10;}
+    .container {max-width:1100px;margin:auto;padding:1rem;}
+    .nav{display:flex;align-items:center;justify-content:space-between;}
+    .brand{display:flex;align-items:center;gap:0.5rem;font-weight:bold;}
+    .nav-links{display:flex;align-items:center;gap:1rem;}
+    .nav-links a{color:#05200f;text-decoration:none;}
+    .cta{background:#1a7f5a;color:#fff;border:none;padding:0.5rem 1rem;border-radius:8px;cursor:pointer;}
+    h1,h2,h3{margin:0.5em 0;}
+    .pill{display:inline-block;background:#e8f5f0;padding:0.2rem 0.6rem;border-radius:20px;font-size:0.85em;}
+    .hero{padding:3rem 1rem;background:#f0faf6;}
+    .hero-wrap{display:grid;grid-template-columns:1fr 1fr;gap:2rem;align-items:center;}
+    .highlight-home{color:#1a7f5a;}
+    .highlight-office{color:#e67e22;}
+    .hero-card{margin-top:1rem;padding:1rem;background:#fff;border-radius:12px;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+    .filters{display:grid;gap:1rem;}
+    .field label{display:block;font-size:0.8em;margin-bottom:0.2rem;}
+    input,select,textarea{width:100%;padding:0.5rem;border:1px solid #ccc;border-radius:6px;}
+    .toggle-group{display:flex;gap:0.3rem;}
+    .toggle-group .aud{padding:0.3rem 0.8rem;border:1px solid #ccc;border-radius:20px;background:#fff;cursor:pointer;}
+    .toggle-group .active{background:#1a7f5a;color:#fff;border-color:#1a7f5a;}
+    .stat-card{background:#fff;padding:1rem;border-radius:12px;box-shadow:0 2px 5px rgba(0,0,0,0.1);}
+    .kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:1rem;}
+    .kpi{text-align:center;}
+    .big{font-size:1.5rem;font-weight:bold;}
+    .toolbar{display:flex;justify-content:space-between;align-items:center;margin:1rem 0;}
+    .cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+    .card{background:#fff;border-radius:12px;padding:1rem;box-shadow:0 1px 4px rgba(0,0,0,0.1);}
+    .card h3{margin-top:0;}
+    .stars{color:gold;font-size:0.9em;}
+    .btn{border:none;padding:0.5rem 1rem;border-radius:8px;cursor:pointer;background:#eee;}
+    .btn.primary{background:#1a7f5a;color:#fff;}
+    section{padding:3rem 1rem;}
+    .steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem;}
+    .step{background:#fff;padding:1rem;border-radius:12px;box-shadow:0 1px 3px rgba(0,0,0,0.1);}
+    .num{background:#1a7f5a;color:#fff;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;}
+    details{margin:0.5rem 0;}
+    footer{background:#05200f;color:#fff;padding:1rem 0;}
+    footer .container{display:flex;justify-content:space-between;align-items:center;}
+    footer a{color:#fff;text-decoration:none;margin-left:1rem;}
+    .modal{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;}
+    .modal-card{background:#fff;padding:1rem;border-radius:12px;max-width:500px;width:100%;}
+    .modal-header{display:flex;justify-content:space-between;align-items:center;}
+    .close{border:none;background:none;font-size:1.2rem;cursor:pointer;}
+    .form-grid{display:grid;gap:1rem;grid-template-columns:1fr 1fr;}
+    .form-grid textarea{min-height:80px;}
+    .actions{display:flex;justify-content:flex-end;gap:0.5rem;margin-top:1rem;}
+    .toast{position:fixed;bottom:1rem;right:1rem;background:#1a7f5a;color:#fff;padding:0.5rem 1rem;border-radius:8px;display:none;}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container nav">
+      <div class="brand"><div class="logo">🏠</div><span>HomePro Connect</span></div>
+      <nav class="nav-links">
+        <a href="#pros">Find Pros</a>
+        <a href="#how">How it works</a>
+        <a href="#faq">FAQ</a>
+        <button class="cta" id="openPost">Post a Job</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-wrap">
+        <div>
+          <p class="pill">Side businesses • Independent pros • Small teams</p>
+          <h1>Connect with trusted providers for <span class="highlight-home">homes</span> and <span class="highlight-office">offices</span>.</h1>
+          <p>Search, compare, and book verified side businesses.</p>
+          <div class="hero-card">
+            <div class="filters">
+              <div class="field"><label for="q">Search service</label><input id="q" type="text" placeholder="e.g., AC repair" /></div>
+              <div class="field"><label for="category">Category</label><select id="category"><option value="">All</option><option>Cleaning</option><option>Repairs</option><option>IT Support</option><option>Moving</option><option>Catering</option></select></div>
+              <div class="field"><label for="sort">Sort</label><select id="sort"><option value="top">Top Rated</option><option value="price_low">Low Price</option><option value="price_high">High Price</option></select></div>
+              <div class="field"><label>Audience</label><div class="toggle-group"><button class="aud active" data-aud="all">All</button><button class="aud" data-aud="home">Home</button><button class="aud" data-aud="office">Office</button></div></div>
+            </div>
+          </div>
+        </div>
+        <div class="hero-visual"><div class="stat-card"><h3>Why businesses join</h3><div class="kpis"><div class="kpi"><div class="big">4.8★</div><div>Avg rating</div></div><div class="kpi"><div class="big">3.2k</div><div>Monthly leads</div></div></div></div></div>
+      </div>
+    </section>
+
+    <section id="pros"><div class="container"><div class="toolbar"><span class="pill" id="resultsCount">Showing 0 providers</span><button class="btn primary" id="openPost2">Post a Job</button></div><div class="cards" id="cards"></div></div></section>
+
+    <section id="how"><div class="container"><h2>How it works</h2><div class="steps"><div class="step"><div class="num">1</div><h3>Tell us</h3><p>Post a job</p></div><div class="step"><div class="num">2</div><h3>Compare</h3><p>Get quotes</p></div><div class="step"><div class="num">3</div><h3>Hire</h3><p>Book provider</p></div></div></div></section>
+
+    <section id="faq"><div class="container"><h2>FAQ</h2><details><summary>Production-ready?</summary><p>It’s a demo front-end.</p></details></div></section>
+  </main>
+
+  <footer><div class="container"><div>© <span id="year"></span> HomePro Connect</div></div></footer>
+
+  <div class="modal" id="modal"><div class="modal-card"><div class="modal-header"><h3>Request a Quote</h3><button class="close" id="closeModal">✕</button></div><form id="quoteForm"><input type="hidden" id="providerName" /><div class="form-grid"><div class="field"><label>Your name</label><input id="name" required></div><div class="field"><label>Email</label><input id="email" required></div><div class="field" style="grid-column:1/-1"><label>Details</label><textarea id="details" required></textarea></div></div><div class="actions"><button class="btn" type="button" id="cancel">Cancel</button><button class="btn primary" type="submit">Send</button></div></form></div></div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // === SCRIPT.JS CONTENT ===
+    const providers=[{name:"Sparkle Cleaners",category:"Cleaning",audience:"home",rating:4.9,reviews:120,price:50,desc:"Professional cleaning"},{name:"TechFix IT",category:"IT Support",audience:"office",rating:4.7,reviews:80,price:70,desc:"IT support for offices"},{name:"Handy Helpers",category:"Repairs",audience:"all",rating:4.5,reviews:60,price:40,desc:"General home repairs"}];
+    const cards=document.getElementById("cards");
+    const resultsCount=document.getElementById("resultsCount");
+    const q=document.getElementById("q");const cat=document.getElementById("category");const sort=document.getElementById("sort");
+    const audBtns=document.querySelectorAll(".aud");
+    let audience="all";
+    function render(){let list=providers.filter(p=>(!q.value||p.name.toLowerCase().includes(q.value.toLowerCase()))&&(!cat.value||p.category===cat.value)&&(audience==="all"||p.audience===audience||p.audience==="all"));
+      if(sort.value==="price_low")list.sort((a,b)=>a.price-b.price);if(sort.value==="price_high")list.sort((a,b)=>b.price-a.price);if(sort.value==="top")list.sort((a,b)=>b.rating-a.rating);
+      resultsCount.textContent=`Showing ${list.length} providers`;
+      cards.innerHTML=list.map(p=>`<div class="card"><h3>${p.name}</h3><div class="stars">${"★".repeat(Math.round(p.rating))}</div><p>${p.desc}</p><p><b>₦${p.price}</b>/hr</p><button class="btn primary" onclick="openModal('${p.name}')">Request</button></div>`).join("");}
+    render();
+    q.oninput=render;cat.onchange=render;sort.onchange=render;audBtns.forEach(b=>b.onclick=()=>{audBtns.forEach(x=>x.classList.remove("active"));b.classList.add("active");audience=b.dataset.aud;render();});
+    const modal=document.getElementById("modal");const closeModalBtn=document.getElementById("closeModal");const cancelBtn=document.getElementById("cancel");const form=document.getElementById("quoteForm");const toast=document.getElementById("toast");function openModal(name){modal.style.display="flex";document.getElementById("providerName").value=name;}
+    closeModalBtn.onclick=()=>modal.style.display="none";cancelBtn.onclick=()=>modal.style.display="none";
+    form.onsubmit=e=>{e.preventDefault();modal.style.display="none";toast.textContent="Request sent!";toast.style.display="block";setTimeout(()=>toast.style.display="none",2000);form.reset();};
+    document.getElementById("year").textContent=new Date().getFullYear();
+  </script>
+</body>
+</html>
